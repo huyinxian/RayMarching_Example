@@ -46,6 +46,7 @@
             {
                 float ret = INFINITY;
 
+                // TODO: 这里如果用for循环去读取数组的话会导致帧数下降
                 Shape s;
                 s.data0 = _ShapesData0Arr[0];
                 s.data1 = _ShapesData1Arr[0];
@@ -126,7 +127,7 @@
             
                 // 获取视空间下的ViewRay，即该顶点对应的视锥体的侧棱
                 o.ray = _FrustumCornersES[(int)index].xyz;
-                
+                // 除以z值，在片元着色器中可以利用相似三角形得到像素距离场景物体的长度，用于判断遮挡关系
                 o.ray /= abs(o.ray.z);
             
                 // 从视空间转换到世界空间
@@ -148,6 +149,7 @@
             
                 // 采样深度图
                 float depth = LinearEyeDepth(tex2D(_CameraDepthTexture, duv).r);
+                // 利用相似三角形得到像素沿着ray到场景物体的长度，如果步进长度超过了这个值，那么就代表场景中的物体挡住了RayMarching
                 depth *= length(i.ray.xyz);
             
                 fixed3 col = tex2D(_MainTex, i.uv);
