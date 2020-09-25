@@ -3,11 +3,11 @@
 
 // ====================SDF==================== //
 
-float sdfBox(float3 p, float c, float3 b)
+float sdfBox(float3 p, float3 c, float3 b)
 {
     p -= c;
-    float3 d = abs(p) - b;
-    return min(max(d.x, max(d.y, d.z)), 0.0) + length(max(d, 0.0));
+    float3 q = abs(p) - b;
+    return length(max(q, 0.0)) + min(max(q.x, max(q.y, q.z)), 0.0);
 }
 
 float sdfSphere(float3 p, float3 c, float r)

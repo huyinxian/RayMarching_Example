@@ -34,7 +34,7 @@ float op(float a, float b, int type, float smooth = 0.1)
 float sdf(float3 p, Shape s)
 {
     if (s.data0.x == SHAPE_SPHERE) return sdfSphere(p, s.data1.xyz, s.data1.w);
-    else if (s.data0.x == SHAPE_BOX) return sdfBox(p, s.data1.xyz, float3(1, 1, 1));
+    else if (s.data0.x == SHAPE_BOX) return sdfBox(p, s.data1.xyz, float3(s.data1.w, s.data1.w, s.data1.w));
 
     return INFINITY;
 }

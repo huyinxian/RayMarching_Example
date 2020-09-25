@@ -69,7 +69,14 @@ public class RayMarchingMaster : SceneViewFilter
             var shape = _shapes[i];
             var shapePos = shape.transform.position;
             shapesData0Arr[i] = new Vector4((float)shape.Type, (float)shape.Operator);
-            shapesData1Arr[i] = new Vector4(shapePos.x, shapePos.y, shapePos.z, shape.transform.localScale.x);
+            if (shape.Type == RayMarchingShapeType.Sphere)
+            {
+                shapesData1Arr[i] = new Vector4(shapePos.x, shapePos.y, shapePos.z, shape.transform.localScale.x);
+            }
+            else if (shape.Type == RayMarchingShapeType.Box)
+            {
+                shapesData1Arr[i] = new Vector4(shapePos.x, shapePos.y, shapePos.z, shape.transform.localScale.x);
+            }
         }
 
         EffectMaterial.SetMatrix("_FrustumCornersES", GetFrustumCorners(CurrentCamera));
